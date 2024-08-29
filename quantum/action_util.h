@@ -89,6 +89,8 @@ void oneshot_mods_changed_user(uint8_t mods);
 void oneshot_mods_changed_kb(uint8_t mods);
 void oneshot_layer_changed_user(uint8_t layer);
 void oneshot_layer_changed_kb(uint8_t layer);
+void oneshot_swap_hands_changed_user(bool swap_hands_state);
+void oneshot_swap_hands_changed_kb(bool swap_hands_state);
 
 void oneshot_toggle(void);
 void oneshot_enable(void);

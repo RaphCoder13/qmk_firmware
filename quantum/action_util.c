@@ -161,6 +161,7 @@ void clear_oneshot_swaphands(void) {
 #        if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     oneshot_swaphands_time = 0;
 #        endif
+    oneshot_swap_hands_changed_kb(false);
 }
 
 #    endif
@@ -524,6 +525,22 @@ __attribute__((weak)) void oneshot_layer_changed_user(uint8_t layer) {}
  */
 __attribute__((weak)) void oneshot_layer_changed_kb(uint8_t layer) {
     oneshot_layer_changed_user(layer);
+}
+
+
+
+/** \brief Called when the one shot swap hands have been changed.
+ *
+ * \param swap_hands_state Contains the active swap hands state active after the change.
+ */
+__attribute__((weak)) void oneshot_swap_hands_changed_user(bool swap_hands_state) {}
+
+/** \brief Called when the swap hands have been changed.
+ *
+ * \param swap_hands_state Contains the active swap hands state active after the change.
+ */
+__attribute__((weak)) void oneshot_swap_hands_changed_kb(bool swap_hands_state) {
+    oneshot_swap_hands_changed_user(swap_hands_state);
 }
 
 /** \brief inspect keyboard state
