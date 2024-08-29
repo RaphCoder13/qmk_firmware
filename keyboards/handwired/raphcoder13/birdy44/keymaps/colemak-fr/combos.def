@@ -1,0 +1,45 @@
+DEFAULT_REF_LAYER(0)
+
+COMB(PT_LPRN, FR_LPRN, KC_P, LCTL_T(KC_T))
+COMB(LN_RPRN, FR_RPRN, KC_L, RCTL_T(KC_N))
+COMB(FS_LBRC, FR_LBRC, KC_F, LSFT_T(KC_S))
+COMB(OE_RBRC, FR_RBRC, FR_O, RSFT_T(KC_E))
+COMB(ZR_LCBR, FR_LCBR, FR_Z, LALT_T(KC_R))
+//COMB(WR_LCBR, FR_LCBR, FR_W, LALT_T(KC_R))
+COMB(QuotI_RCBR, FR_RCBR, FR_QUOT, LALT_T(KC_I))
+//COMB(dkI_RCBR, FR_RCBR, OSL(13), LALT_T(KC_I))
+//COMB(YI_RCBR, FR_RCBR, RALT_T(KC_Y), LALT_T(KC_I))
+COMB(BG_LABK, FR_LABK, KC_B, KC_G)
+COMB(JM_RABK, FR_RABK, KC_J, FR_M)
+
+
+
+// T-D gives :
+COMB(TD_COLN, KC_DOT, LCTL_T(KC_T), RALT_T(KC_D))
+// N-H gives /
+COMB(NH_SLSH, FR_SLSH, RCTL_T(KC_N), RALT_T(KC_H))
+
+// COMB(TD_COLN, KC_DOT, LCTL_T(KC_T), KC_D)
+// COMB(NH_SLSH, FR_SLSH, RCTL_T(KC_N), KC_H)
+
+
+// S-C gives ^
+COMB(SC_CIRC, ALGR(FR_CCED), LSFT_T(KC_S), KC_C)
+// e et - gives $
+COMB(EMINS_DLR, FR_DLR, RSFT_T(KC_E), FR_MINS)
+
+// T-G gives =
+COMB(TG_EQL, FR_EQL, LCTL_T(KC_T), KC_G)
+// N-M gives ;
+COMB(NM_SCLN, FR_SCLN, RCTL_T(KC_N), FR_M)
+
+// QA donne qu en mode Colemak-fr
+SUBS(QA_QU, "qu", FR_Q, LGUI_T(FR_A))
+
+// QZ donne qu en mode Colemak-fr
+SUBS(QZ_QU, "qu", FR_Q, FR_Z)
+
+// - et ' font Layer_lock
+//COMB(lock_layer, LAYER_LOCK, FR_MINS, FR_QUOT)
+
+
