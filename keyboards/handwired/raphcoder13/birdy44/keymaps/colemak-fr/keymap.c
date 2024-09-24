@@ -489,8 +489,7 @@ bool process_alt_repeat_macros_user(uint16_t keycode, keyrecord_t *record) {
         case MAG_MENT: SEND_STRING(/*m*/"ent"); break;
         case MAG_TION: SEND_STRING(/*t*/"ion"); break;
         case MAG_RAPHAEL:  SEND_STRING(/*r*/"apha"); tap_code16(S(FR_CIRC));SEND_STRING("el"); break;
-        case MAG_DEBUG:  SEND_STRING(/*d*/"ebeugny"); break;
-        case MAG_PHONE:  SEND_STRING(/*0*/"6 12 43 19 94"); break;
+
 
         default:
             return true;
