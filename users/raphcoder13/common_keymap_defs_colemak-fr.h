@@ -1,90 +1,93 @@
 #pragma once
-#include "sendstring_french.h"
+#include <sendstring_french.h>
 
-#include "features/custom_shift_keys.h"
+#include <features/custom_shift_keys.h>
 
 #include QMK_KEYBOARD_H
 
 
 
 // Left-hand home row mods
-#define HOME_Q LGUI_T(KC_Q)
-#define HOME_A LGUI_T(FR_A)
-#define HOME_R LALT_T(KC_R)
-#define HOME_S LSFT_T(KC_S)
-#define HOME_T LCTL_T(KC_T)
-#define HOME_X RALT_T(KC_X)
-#define HOME_W RALT_T(KC_W)
-#define HOME_Z RALT_T(FR_Z)
+#define HOME_A_GUI LGUI_T(FR_A)
+#define HOME_R_ALT LALT_T(KC_R)
+#define HOME_S_SFT LSFT_T(KC_S)
+#define HOME_T_CTL LCTL_T(KC_T)
+#define HOME_D_RALT RALT_T(FR_D)
 
 // Right-hand home row mods
-#define HOME_N RCTL_T(KC_N)
-#define HOME_E RSFT_T(KC_E)
-#define HOME_I LALT_T(KC_I)
-#define HOME_Y RALT_T(FR_Y)
-#define HOME_SCLN RALT_T(FR_SCLN)
+#define HOME_N_CTL RCTL_T(KC_N)
+#define HOME_E_SFT RSFT_T(KC_E)
+#define HOME_I_ALT LALT_T(KC_I)
+#define HOME_U_GUI RGUI_T(FR_U)
+#define HOME_H_RALT RALT_T(FR_H)
 
-#define HOME_O RGUI_T(KC_O)
+// #define HOME_Y RALT_T(FR_Y)
+// #define HOME_S_SFTCLN RALT_T(FR_SCLN)
 
-// Modifiers pous OPTIMOT
-#define HOME_OP_Y RALT_T(FR_Y)
-#define HOME_OP_A LGUI_T(FR_A)
-#define HOME_OP_I LALT_T(FR_I)
-#define HOME_OP_E LSFT_T(FR_E)
-#define HOME_OP_U LCTL_T(FR_U)
 
-#define HOME_OP_H RALT_T(FR_H)
-#define HOME_OP_N RGUI_T(FR_N)
-#define HOME_OP_R LALT_T(FR_R)
-#define HOME_OP_S RSFT_T(FR_S)
-#define HOME_OP_T RCTL_T(FR_T)
+// #define HOME_O RGUI_T(KC_O)
 
-// Modifiers pous Colemak-FR
-#define DOT_HR_RALT RALT_T(FR_DOT)
-#define COMM_HR_RALT RALT_T(FR_COMM)
-#define C_HR_RALT RALT_T(FR_C)
+// // Modifiers pous OPTIMOT
+// #define HOME_OP_Y RALT_T(FR_Y)
+// #define HOME_OP_A LGUI_T(FR_A)
+// #define HOME_OP_I LALT_T(FR_I)
+// #define HOME_OP_E LSFT_T(FR_E)
+// #define HOME_OP_U LCTL_T(FR_U)
 
-// Home row for the ErgoL
-#define X_HR_RALT RALT_T(FR_X)
-#define A_HR_GUI LGUI_T(FR_A)
-#define S_HR_LALT LALT_T(FR_S)
-#define E_HR_SFT LSFT_T(FR_E)
-#define N_HR_CTL LCTL_T(FR_N)
-#define Y_HR_RALT RALT_T(FR_Y)
-#define U_HR_GUI RGUI_T(FR_U)
-#define I_HR_LALT LALT_T(FR_I)
-#define T_HR_SFT RSFT_T(FR_T)
-#define R_HR_CTL RCTL_T(FR_R)
+// #define HOME_OP_H RALT_T(FR_H)
+// #define HOME_OP_N RGUI_T(FR_N)
+// #define HOME_OP_R LALT_T(FR_R)
+// #define HOME_OP_S RSFT_T(FR_S)
+// #define HOME_OP_T RCTL_T(FR_T)
 
-// Idem pour AZERTY
-// Left-hand home row mods
-#define FR_GUI_A LGUI_T(KC_A)
-#define FR_GUI_Q LGUI_T(FR_Q)
-#define FR_ALT_S LALT_T(KC_S)
-#define FR_SFT_D LSFT_T(KC_D)
-#define FR_RALT_X RALT_T(KC_X)
-#define FR_RALT_W RALT_T(KC_W)
-#define FR_RALT_Z RALT_T(FR_Z)
+// // Modifiers pous Colemak-FR
+// #define DOT_HR_RALT RALT_T(FR_DOT)
+// #define COMM_HR_RALT RALT_T(FR_COMM)
+// #define C_HR_RALT RALT_T(FR_C)
 
-#define FR_CTL_F LCTL_T(KC_F)
+// // Home row for the ErgoL
+// #define X_HR_RALT RALT_T(FR_X)
+// #define A_HR_GUI LGUI_T(FR_A)
+// #define S_HR_LALT LALT_T(FR_S)
+// #define E_HR_SFT LSFT_T(FR_E)
+// #define N_HR_CTL LCTL_T(FR_N)
+// #define Y_HR_RALT RALT_T(FR_Y)
+// #define I_HR_LALT LALT_T(FR_I)
+// #define T_HR_SFT RSFT_T(FR_T)
+// #define R_HR_CTL RCTL_T(FR_R)
 
-// Right-hand home row mods
-#define FR_CTL_J RCTL_T(KC_J)
-#define FR_SFT_K RSFT_T(KC_K)
-#define FR_ALT_L LALT_T(KC_L)
-#define FR_RALT_O RALT_T(KC_O)
-#define FR_RALT_COLN RALT_T(FR_COLN)
+// // Idem pour AZERTY
+// // Left-hand home row mods
+// #define FR_GUI_A LGUI_T(KC_A)
+// #define FR_GUI_Q LGUI_T(FR_Q)
+// #define FR_ALT_S LALT_T(KC_S)
+// #define FR_SFT_D LSFT_T(KC_D)
+// #define FR_RALT_X RALT_T(KC_X)
+// #define FR_RALT_W RALT_T(KC_W)
+// #define FR_RALT_Z RALT_T(FR_Z)
 
-#define FR_GUI_M RGUI_T(FR_M)
+// #define FR_CTL_F LCTL_T(KC_F)
+
+// // Right-hand home row mods
+// #define FR_CTL_J RCTL_T(KC_J)
+// #define FR_SFT_K RSFT_T(KC_K)
+// #define FR_ALT_L LALT_T(KC_L)
+// #define FR_RALT_O RALT_T(KC_O)
+// #define FR_RALT_COLN RALT_T(FR_COLN)
+
+// #define FR_GUI_M RGUI_T(FR_M)
 
 // Clipboard operations
-// #define USR_CUT C(KC_X)
-// #define USR_COPY C(KC_C)
-// #define USR_PASTE C(KC_V)
+#define USR_CUT C(KC_X)
+#define USR_COPY C(KC_C)
+#define USR_PASTE C(KC_V)
 
-#define USR_CUT S(KC_DEL)
-#define USR_COPY C(KC_INS)
-#define USR_PASTE S(KC_INS)
+// #define USR_CUT S(KC_DEL)
+// #define USR_COPY C(KC_INS)
+// #define USR_PASTE S(KC_INS)
+
+#define USR_UNDO C(FR_Z)
+#define USR_REDO C(FR_Y)
 
 // Caractères spéciaux non présent dans keymap_french.h
 #define FR_UCRC ALGR(FR_U) // û
@@ -138,13 +141,13 @@ uint8_t NUM_CUSTOM_SHIFT_KEYS =
     sizeof(custom_shift_keys) / sizeof(custom_shift_key_t);
 
 
-#define ________COLEMAK_FR_1DK_L1________        FR_Q,            FR_Z,             FR_F,           FR_P,            FR_B
-#define ________COLEMAK_FR_1DK_L2________        HOME_A,          HOME_R,           HOME_S,         HOME_T,          FR_G
-#define ________COLEMAK_FR_1DK_L3________        FR_W,            FR_X,             FR_C,           RALT_T(FR_D),    FR_V
+#define ________COLEMAK_FR_1DK_L1________        FR_Q,            FR_Z,             FR_F,           FR_P,           FR_B
+#define ________COLEMAK_FR_1DK_L2________        HOME_A_GUI,      HOME_R_ALT,       HOME_S_SFT,     HOME_T_CTL,     FR_G
+#define ________COLEMAK_FR_1DK_L3________        FR_W,            FR_X,             FR_C,           HOME_D_RALT,    FR_V
 
-#define ________COLEMAK_FR_1DK_R1________        FR_J,            FR_L,             FR_O,           OSL(ACCENT_COLEMAK_LAYER),     FR_Y
-#define ________COLEMAK_FR_1DK_R2________        FR_M,            HOME_N,           HOME_E,         HOME_I,      U_HR_GUI
-#define ________COLEMAK_FR_1DK_R3________        FR_K,            RALT_T(FR_H),     FR_MINS,        FR_COMM,     FR_DOT
+#define ________COLEMAK_FR_1DK_R1________        FR_J,            FR_L,            FR_O,           OSL(ACCENT_COLEMAK_LAYER),     FR_Y
+#define ________COLEMAK_FR_1DK_R2________        FR_M,            HOME_N_CTL,      HOME_E_SFT,     HOME_I_ALT,      HOME_U_GUI
+#define ________COLEMAK_FR_1DK_R3________        FR_K,            HOME_H_RALT,     FR_MINS,        FR_COMM,         FR_DOT
 
 #define ___________ACCENT_NEW_COLEMAK_L1___________          FR_ACRC,            FR_ITREM,         FR_ICRC,      FR_UCRC,    FR_QUOT
 #define ___________ACCENT_NEW_COLEMAK_L2___________          FR_AGRV,            ETREM_MAJ,        FR_ECRC,      FR_DQUO,    FR_AMPR
@@ -178,12 +181,13 @@ uint8_t NUM_CUSTOM_SHIFT_KEYS =
 #define ____________NUMBS_L2____________         KC_PAST,              FR_4,               FR_5,           FR_6,            KC_PPLS
 #define ____________NUMBS_L3____________         FR_0,                 FR_1,               FR_2,           FR_3,            KC_EQL
 #define ____________NUMBS_R1____________         KC_BSPC,              DM_RSTP,            DM_PLY1,        DM_PLY2,         KC_NO
-#define ____________NUMBS_R2____________         KC_DEL,               OSM(MOD_RCTL),      TD(TD_OSM_RSFT),  OSM(MOD_LALT),   OSM(MOD_RGUI)
+#define ____________NUMBS_R2____________         KC_DEL,               OSM(MOD_RCTL),      OSM(MOD_RSFT),  OSM(MOD_LALT),   OSM(MOD_RGUI)
 #define ____________NUMBS_R3____________         KC_NO,                OSM(MOD_RALT),      DM_REC1,        DM_REC2,         KC_NO
 
 #define ____________NAV_L1____________           C(FR_A),              USR_CUT,            USR_COPY,       USR_PASTE,       VIM_SYST_CLIPB
-#define ____________NAV_L2____________           OSM(MOD_LGUI),        OSM(MOD_LALT),      TD(TD_OSM_LSFT),  OSM(MOD_LCTL),   C(FR_Z)
-#define ____________NAV_L3____________           VIM_LAST_YANK,        LALT(KC_F4),        LGUI(KC_LALT),  KC_APP,          C(FR_Y)
+#define ____________NAV_L2____________           OSM(MOD_LGUI),        OSM(MOD_LALT),      OSM(MOD_LSFT),  OSM(MOD_LCTL), USR_UNDO
+#define ____________NAV_L3____________           VIM_LAST_YANK,        LALT(KC_F4),        KC_APP,         OSM(MOD_RALT),   USR_REDO
+// #define ____________NAV_L3____________           VIM_LAST_YANK,        LALT(KC_F4),        LGUI(KC_LALT),  KC_APP,          C(FR_Y)
 #define ____________NAV_R1____________           KC_INS,               KC_HOME,            KC_UP,          KC_END,          KC_PGUP
 #define ____________NAV_R2____________           KC_PSCR,              KC_LEFT,            KC_DOWN,        KC_RGHT,         KC_PGDN
 #define ____________NAV_R3____________           KC_PAUS,              C(KC_LEFT),         C(KC_UP),       C(KC_RGHT),      KC_APP
@@ -195,7 +199,7 @@ uint8_t NUM_CUSTOM_SHIFT_KEYS =
 #define ____________FUN_R2____________           KC_NUM,               KC_RCTL,            KC_RSFT,        KC_LALT,         KC_RGUI
 #define ____________FUN_R3____________           KC_NO,                KC_RALT,            KC_MPRV,        KC_MPLY,         KC_MNXT
 
-#define ____________APPS_L1___________           KC_NO,                KC_NO,              KC_NO,          KC_NO,           TD(TD_TRIPLE_BOOTLOADER)
+#define ____________APPS_L1___________           VRSN,                KC_NO,              KC_NO,          KC_NO,           TD(TD_TRIPLE_BOOTLOADER)
 #define ____________APPS_L2___________           KC_LGUI,              KC_LALT,            KC_LSFT,        KC_LCTL,           KC_NO
 #define ____________APPS_L3___________           KC_NO,                KC_NO,              KC_NO,          KC_RALT,           KC_NO
 #define ____________APPS_R1___________           TD(TD_TRIPLE_REBOOT), LALT(FR_L),         LCTL(KC_GRV),   KC_NO,           KC_NO
