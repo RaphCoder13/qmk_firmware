@@ -20,8 +20,14 @@ NKRO_ENABLE       = no           # Enable N-Key Rollover
 BACKLIGHT_ENABLE  = no # Enable keyboard backlight functionality
 SWAP_HANDS_ENABLE = yes
 
-RGBLIGHT_ENABLE   = yes
-RGBLIGHT_DRIVER   = ws2812
+# RGBLIGHT_ENABLE   = yes
+RGBLIGHT_ENABLE   = no
+# RGBLIGHT_DRIVER   = ws2812
+# WS2812_DRIVER     = vendor
+
+RGB_MATRIX_ENABLE = yes
+# RGB_MATRIX_DRIVER = ws2812
+
 WS2812_DRIVER     = vendor
 
 DYNAMIC_MACRO_ENABLE = yes

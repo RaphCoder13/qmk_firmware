@@ -21,6 +21,7 @@
 #define LAYOUT_wrapper(...) LAYOUT(__VA_ARGS__)
 //#pragma region declarations
 
+static uint8_t last_layer = 0;
 static uint32_t layer_timer;
 bool is_layer_info_timeout = false;
 bool is_recording_macro = false;
@@ -920,7 +921,6 @@ void check_rgb_timeout(void) {
         is_rgb_timeout = true;
     }
 }
-#endif
 
 
 const rgblight_segment_t PROGMEM my_mouse_layer[] =  RGBLIGHT_LAYER_SEGMENTS(
@@ -1039,10 +1039,104 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     my_excel_layer,
     my_accent_layer
 );
+
+
+bool led_update_user(led_t led_state) {
+    rgblight_set_layer_state(0, led_state.caps_lock);
+    return true;
+}
+
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (host_keyboard_led_state().caps_lock) {
+        for (uint8_t i = led_min; i < led_max; i++) {
+            if (g_led_config.flags[i] & LED_FLAG_INDICATOR) {
+                rgb_matrix_set_color(i, RGB_RED);
+            }
+        }
+    }
+    return false;
+}
+//     if (get_highest_layer(layer_state) != last_layer) {
+
+//         uint8_t layer = get_highest_layer(layer_state);
+//         last_layer = layer;
+//    switch(layer){
+//         case BASE:
+//             rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+//             break;
+//         case GAME:
+//             rgb_matrix_mode_noeeprom(RGB_MATRIX_GRADIENT_LEFT_RIGHT);
+//             break;
+//         case SYMB:
+//             rgb_matrix_mode_noeeprom(RGB_MATRIX_FLOWER_BLOOMING);
+//             break;
+//         case NUMBERS:
+//             rgb_matrix_mode_noeeprom(RGB_MATRIX_SPLASH);
+//             break;
+//         case NAV:
+//             rgb_matrix_mode_noeeprom(RGB_MATRIX_RIVERFLOW);
+//             break;
+//         case FUN:
+//             rgb_matrix_mode_noeeprom(RGB_MATRIX_HUE_WAVE);
+//             break;
+//         case APPS_LAYER:
+//             rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+//             break;
+//         case MOUSE_LAYER:
+//             rgb_matrix_mode_noeeprom(RGB_MATRIX_CYCLE_OUT_IN);
+//             break;
+//         case EXCEL_LAYER:
+//             rgb_matrix_mode_noeeprom(RGB_MATRIX_DUAL_BEACON);
+
+//      }
+
+//     return false;
+// }
+#endif
+
+
+
 void update_layer_info(int highLayer, bool hand_swapped) {
     uprintf("KBHLayer%d%s\n", highLayer, hand_swapped ? "M" : "");
     layer_timer = timer_read32();
     is_layer_info_timeout = false;
+    if(highLayer == last_layer)
+        return;
+    last_layer = highLayer;
+#ifdef RGB_MATRIX_ENABLE
+    switch(highLayer){
+        case BASE:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+            break;
+        case GAME:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_GRADIENT_LEFT_RIGHT);
+            break;
+        case SYMB:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_FLOWER_BLOOMING);
+            break;
+        case NUMBERS:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
+            break;
+        case NAV:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_RIVERFLOW);
+            break;
+        case FUN:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_HUE_WAVE);
+            break;
+        case APPS_LAYER:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_BREATHING);
+            break;
+        case MOUSE_LAYER:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_CYCLE_OUT_IN);
+            break;
+        case EXCEL_LAYER:
+            rgb_matrix_mode_noeeprom(RGB_MATRIX_DUAL_BEACON);
+
+    }
+#endif
 
 #ifdef RGBLIGHT_ENABLE
     // rgblight_set_layer_state(0, highLayer == BASE);
@@ -1081,10 +1175,6 @@ void update_layer_info(int highLayer, bool hand_swapped) {
 #endif
 }
 
-bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(0, led_state.caps_lock);
-    return true;
-}
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     update_layer_info(get_highest_layer(state), is_swap_hands_on());
@@ -1145,6 +1235,9 @@ void keyboard_post_init_user(void) {
     // transaction_register_rpc(RPC_ID_USER_SWAP_SYNC, user_sync_swap_hands);
 
     refresh_layer_info();
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_CYCLE_SPIRAL);
+#endif
 #ifdef RGBLIGHT_ENABLE
     // rgblight_sethsv(HSV_BLUE);
     // rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING);
