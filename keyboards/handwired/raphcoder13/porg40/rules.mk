@@ -5,7 +5,7 @@ SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = vendor
 
 
-
+DEBOUNCE_TYPE = asym_eager_defer_pk
 
 # Build Options
 #   change yes to no to disable
@@ -20,14 +20,8 @@ NKRO_ENABLE       = no           # Enable N-Key Rollover
 BACKLIGHT_ENABLE  = no # Enable keyboard backlight functionality
 SWAP_HANDS_ENABLE = yes
 
-# RGBLIGHT_ENABLE   = yes
-RGBLIGHT_ENABLE   = no
-# RGBLIGHT_DRIVER   = ws2812
-# WS2812_DRIVER     = vendor
-
-RGB_MATRIX_ENABLE = yes
-# RGB_MATRIX_DRIVER = ws2812
-
+RGBLIGHT_ENABLE   = yes
+RGBLIGHT_DRIVER   = ws2812
 WS2812_DRIVER     = vendor
 
 DYNAMIC_MACRO_ENABLE = yes
@@ -37,7 +31,8 @@ POINTING_DEVICE_DRIVER = cirque_pinnacle_spi
 WAIT_FOR_USB = yes
 NO_USB_STARTUP_CHECK = yes
 
-REPEAT_KEY_ENABLE = yes
+# REPEAT_KEY_ENABLE = yes
+REPEAT_KEY_ENABLE = no
 
 USER_NAME := raphcoder13
 

@@ -76,8 +76,8 @@
 
 #define TAPPING_TERM    220
 // #define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
-#define PERMISSIVE_HOLD
-#define QUICK_TAP_TERM 120
+// #define PERMISSIVE_HOLD
+#define QUICK_TAP_TERM 80
 
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
@@ -129,7 +129,7 @@
 #define DISABLE_SPACE_CADET_ROLLOVER
 
 /* Set 0 if debouncing isn't needed */
-#define DEBOUNCE    5
+#define DEBOUNCE    20
 
 #define USB_MAX_POWER_CONSUMPTION 500
 
@@ -165,14 +165,7 @@
 
 #define AUTO_MOUSE_TIME 400
 
-#ifdef RGB_MATRIX_ENABLE
-#define RGB_MATRIX_SPLIT { 25, 25 }
-#define SPLIT_LAYER_STATE_ENABLE
-#define WS2812_BYTE_ORDER  WS2812_BYTE_ORDER_GRB
-#endif
-#define SPLIT_TRANSPORT_MIRROR
 
-#undef RGBLIGHT_ENABLE
 // Gestion des leds
 #ifdef RGBLIGHT_ENABLE
 
