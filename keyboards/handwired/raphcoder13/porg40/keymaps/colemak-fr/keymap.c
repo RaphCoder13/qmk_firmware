@@ -302,7 +302,17 @@ void leader_end_user(void) {
     } else if (leader_sequence_one_key(FR_G)) {
         // Enable Slash case
         enable_xcase_with(FR_SLSH);
+    } else if (leader_sequence_one_key(FR_R)) {
+        SEND_STRING("Rapha");
+        tap_code16(S(FR_CIRC));
+        SEND_STRING("el");
+
+    } else if (leader_sequence_two_keys(FR_R, FR_D)) {
+        SEND_STRING("Debeugny");
+    } else if (leader_sequence_two_keys(FR_R, FR_T)) {
+        SEND_STRING("06 12 43 19 94");
     }
+
 
 }
 
@@ -385,8 +395,8 @@ bool process_alt_repeat_macros_user(uint16_t keycode, keyrecord_t *record) {
         case MAG_MENT: SEND_STRING(/*m*/"ent"); break;
         case MAG_TION: SEND_STRING(/*t*/"ion"); break;
         case MAG_RAPHAEL:  SEND_STRING(/*r*/"apha"); tap_code16(S(FR_CIRC));SEND_STRING("el"); break;
-        case MAG_DEBUG:  SEND_STRING(/*d*/"ebug"); break;
-        case MAG_PHONE:  SEND_STRING(/*0*/"12 34 56 78"); break;
+        case MAG_DEBUG:  SEND_STRING(/*d*/"ebeugny"); break;
+        case MAG_PHONE:  SEND_STRING(/*0*/"6 12 43 19 94"); break;
 
         default:
             return true;
@@ -417,6 +427,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (temp_keycode) {
             // dynamically generate these.
+#ifdef REPEAT_KEY_ENABLE
         case RDB_REPEAT:
             if(record->event.pressed && get_repeat_key_count() == 0) {
                     keyrecord_t press;
@@ -446,6 +457,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
 
+#endif
         case SH_OS_TT:
             // One shot tap toggle swap hands with momentary on hold
 
@@ -458,16 +470,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     action.code = ACTION_SWAP_HANDS_ON_OFF();
                     // action.swap.code = OP_SH_TOGGLE;
 
-                    uprintf("Swap Hands TOGGLE\n");
                     process_action(record, action);
                 } else {
                     // One shot swap hands on hold
                     set_oneshot_swaphands();
-                    uprintf("Swap Hands OneShot - Hold\n");
                 }
             } else {
                 clear_oneshot_swaphands();
-                uprintf("Swap Hands OneShot - Release\n");
             }
             return false;
 
@@ -475,11 +484,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case VRSN:
             if (record->event.pressed) {
                 SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-#ifdef ACHORDION_ENABLE
-    uprintf("ACHORDION\n");
-    #else
-    uprintf("NO ACHORDION\n");
-#endif
+
             }
             return false;
 
@@ -516,7 +521,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         unregister_mods(MOD_MASK_SHIFT);
 
                     } else {
-                        uprintf("etrem maj no shift\n");
                         register_code16(ALGR(FR_D));
                     }
                 }
