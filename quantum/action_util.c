@@ -527,6 +527,7 @@ __attribute__((weak)) void oneshot_layer_changed_kb(uint8_t layer) {
     oneshot_layer_changed_user(layer);
 }
 
+<<<<<<< HEAD
 
 
 /** \brief Called when the one shot swap hands have been changed.
@@ -543,6 +544,8 @@ __attribute__((weak)) void oneshot_swap_hands_changed_kb(bool swap_hands_state) 
     oneshot_swap_hands_changed_user(swap_hands_state);
 }
 
+=======
+>>>>>>> 6b5d5b80de963013fb175d1411fff947fb500823
 /** \brief inspect keyboard state
  *
  * FIXME: needs doc

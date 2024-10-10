@@ -275,6 +275,7 @@ __attribute__((weak)) bool terminate_case_modes(uint16_t keycode, const keyrecor
             // case S(FR_SCLN):
             // case FR_COMM:
 
+
             // Numpad keycodes
             case KC_P1 ... KC_P0:
             case KC_PSLS ... KC_PPLS:
