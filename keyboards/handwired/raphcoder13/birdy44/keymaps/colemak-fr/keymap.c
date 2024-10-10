@@ -414,8 +414,11 @@ void leader_end_user(void) {
     } else if (leader_sequence_one_key(FR_G)) {
         // Enable Slash case
         enable_xcase_with(FR_SLSH);
+    } else if (leader_sequence_one_key(FR_R)) {
+        SEND_STRING("Rapha");
+        tap_code16(S(FR_CIRC));
+        SEND_STRING("el");
     }
-
 }
 
 
