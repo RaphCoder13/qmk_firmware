@@ -317,6 +317,10 @@ static void send_nibble_wrapper(uint8_t digit) {
         uint8_t kc = digit < 10
                    ? KC_KP_1 + (10 + digit - 1) % 10
                    : KC_A + (digit - 10);
+#ifdef UNICODE_FR
+        if(kc == KC_A)
+            kc = KC_Q;
+#endif
         tap_code(kc);
         return;
     }
@@ -357,6 +361,30 @@ void register_hex32(uint32_t hex) {
     }
 }
 
+// For an uint32_t value, send each digit of the decimal string using send_nibble_wrapper
+// Send the digits from left to right with 4 digits (padding left with 0)
+void register_integer_string(uint32_t value) {
+    uint8_t  digits[4];
+    uint32_t temp_value = value;
+
+
+    int8_t index = 0;
+    while (temp_value > 0) {
+        digits[index] = temp_value % 10;
+        temp_value /= 10;
+        index++;
+    }
+
+    for (int8_t i = 3; i >= 0; i--) {
+        if (i >= index) {
+            send_nibble_wrapper(0);
+        } else {
+            send_nibble_wrapper(digits[i]);
+        }
+    }
+}
+
+
 void register_unicode(uint32_t code_point) {
     if (code_point > 0x10FFFF || (code_point > 0xFFFF && unicode_config.input_mode == UNICODE_MODE_WINDOWS)) {
         // Code point out of range, do nothing
@@ -364,6 +392,27 @@ void register_unicode(uint32_t code_point) {
     }
 
     unicode_input_start();
+#ifdef UNICODE_ASCII
+
+    if(unicode_config.input_mode == UNICODE_MODE_WINDOWS)
+    {
+            printf("registering uniccde string %0X\n", (uint16_t) code_point);
+        if(code_point <= 0xFF)
+        {
+            register_integer_string(code_point);
+        }
+        else
+        {
+
+            tap_code(KC_KP_PLUS);
+            wait_ms(UNICODE_TYPE_DELAY);
+            register_hex32(code_point);
+        }
+    }
+
+#else
+
+
     if (code_point > 0xFFFF && unicode_config.input_mode == UNICODE_MODE_MACOS) {
         // Convert code point to UTF-16 surrogate pair on macOS
         code_point -= 0x10000;
@@ -373,6 +422,7 @@ void register_unicode(uint32_t code_point) {
     } else {
         register_hex32(code_point);
     }
+#endif
     unicode_input_finish();
 }
 
