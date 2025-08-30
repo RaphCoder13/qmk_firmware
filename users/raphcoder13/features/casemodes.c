@@ -178,7 +178,18 @@ static void place_delimiter(void) {
         set_oneshot_mods(mods);
     } else {
 #endif
+#ifndef UNICODE_FR
         tap_code16(xcase_delimiter);
+#else
+        if((xcase_delimiter == KC_8 || xcase_delimiter == KC_6)
+          && is_caps_word_on()) {
+            disable_caps_word();
+            tap_code16(xcase_delimiter);
+            enable_caps_word();
+        } else {
+            tap_code16(xcase_delimiter);
+        }
+#endif //UNICODE_FR
 #ifndef NO_ACTION_TAPPING
     }
 #endif
