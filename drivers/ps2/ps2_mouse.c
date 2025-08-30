@@ -37,7 +37,7 @@ static inline void ps2_mouse_enable_scrolling(void);
 static inline void ps2_mouse_scroll_button_task(report_mouse_t *mouse_report);
 
 /* ============================= IMPLEMENTATION ============================ */
-
+static bool ps2_mouse_task_activated = true;
 /* supports only 3 button mouse at this time */
 void ps2_mouse_init(void) {
     ps2_host_init();
@@ -77,7 +77,8 @@ void ps2_mouse_task(void) {
 
     /* receives packet from mouse */
 #ifdef PS2_MOUSE_USE_REMOTE_MODE
-    uint8_t rcv;
+if(ps2_mouse_task_activated)
+{    uint8_t rcv;
     rcv = ps2_host_send(PS2_MOUSE_READ_DATA);
     if (rcv == PS2_ACK) {
         mouse_report.buttons = ps2_host_recv_response();
@@ -90,6 +91,7 @@ void ps2_mouse_task(void) {
         if (debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
         /* return here to avoid updating the mouse button state */
         return;
+		}
     }
 #else
     if (pbuf_has_data()) {
@@ -165,6 +167,12 @@ void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate) {
     PS2_MOUSE_SET_SAFE(PS2_MOUSE_SET_SAMPLE_RATE, sample_rate, "ps2 mouse set sample rate");
 }
 
+void ps2_mouse_disable_task(void) {
+    ps2_mouse_task_activated = false;
+}
+void ps2_mouse_enable_task(void) {
+    ps2_mouse_task_activated = true;
+}
 /* ============================= HELPERS ============================ */
 
 #define X_IS_NEG (mouse_report->buttons & (1 << PS2_MOUSE_X_SIGN))
