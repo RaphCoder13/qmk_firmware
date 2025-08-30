@@ -19,7 +19,7 @@ COMMAND_ENABLE    = no  # Commands for debug and configuration
 NKRO_ENABLE       = no           # Enable N-Key Rollover
 BACKLIGHT_ENABLE  = no # Enable keyboard backlight functionality
 SWAP_HANDS_ENABLE = yes  # Disable Onehand
-AUTO_SHIFT_ENABLE = yes
+# AUTO_SHIFT_ENABLE = yes
 
 RGBLIGHT_ENABLE   = yes
 RGBLIGHT_DRIVER   = ws2812

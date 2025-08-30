@@ -168,21 +168,19 @@ float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;
 
 report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, report_mouse_t right_report) {
-
     if (abs(left_report.x) > abs(left_report.y)) {
         left_report.h = (float)left_report.x / SCROLL_DIVISOR_H;
         left_report.v = 0;
-    scroll_accumulated_h += (float)left_report.x / SCROLL_DIVISOR_H;
-    left_report.h = (int8_t)scroll_accumulated_h;
-    scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
+        scroll_accumulated_h += (float)left_report.x / SCROLL_DIVISOR_H;
+        left_report.h = (int8_t)scroll_accumulated_h;
+        scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
     } else {
         left_report.h = 0;
         left_report.v = (float)left_report.y / SCROLL_DIVISOR_V;
-    scroll_accumulated_v += (float)left_report.y / SCROLL_DIVISOR_V;
-    left_report.v = (int8_t)scroll_accumulated_v;
-    scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+        scroll_accumulated_v += (float)left_report.y / SCROLL_DIVISOR_V;
+        left_report.v = (int8_t)scroll_accumulated_v;
+        scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
     }
-
 
     // Assign integer parts of accumulated scroll values to the mouse report
 
@@ -194,8 +192,7 @@ report_mouse_t pointing_device_task_combined_user(report_mouse_t left_report, re
 
     return pointing_device_combine_reports(left_report, right_report);
 }
-//#pragma endregion
-
+// #pragma endregion
 
 //#pragma region ShiftBypass
 // void alternate_shift(keyrecord_t *record, uint16_t keycode, uint16_t shifted_keycode) {
@@ -336,14 +333,14 @@ bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, ui
         //     }
         //     break;
 
-        case HOME_T:
-            if ( other_keycode == FR_S || other_keycode == FR_W || other_keycode == HOME_S || other_keycode == HOME_Q
+        case HOME_T_CTL:
+            if ( other_keycode == FR_S || other_keycode == FR_W || other_keycode == HOME_S_SFT || other_keycode == HOME_A_GUI
         //         // || other_keycode == LT(ACCENT_LAYER,KC_SPC)
                 || other_keycode == KC_MS_BTN1 || other_keycode == KC_MS_BTN2 || other_keycode == KC_MS_BTN3) {
                 return true;
             }
             break;
-        case HOME_N:
+        case HOME_N_CTL:
             if ( other_keycode == FR_O)
              return true;
             break;
@@ -451,19 +448,19 @@ uint16_t get_alt_repeat_key_keycode_user(uint16_t keycode, uint8_t mods) {
         }
     }
     switch (keycode) {
-        case HOME_I:
+        case HOME_I_ALT:
             return MAG_ION;
         case FR_L:
             return MAG_LES;
         case FR_O:
             return MAG_OUR;
-        case HOME_A:
+        case HOME_A_GUI:
             return MAG_AIT;
         case FR_M:
             return MAG_MENT;
-        case HOME_T:
+        case HOME_T_CTL:
             return MAG_TION;
-        case HOME_R:
+        case HOME_R_ALT:
             return MAG_RAPHAEL;
         case KC_P0:
         case FR_0:
