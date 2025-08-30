@@ -76,7 +76,7 @@
 
 #define TAPPING_TERM    220
 // #define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
-// #define PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD
 #define QUICK_TAP_TERM 80
 
 
@@ -165,6 +165,13 @@
 
 #define AUTO_MOUSE_TIME 400
 
+// #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE
+// #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE
+#define UNICODE_KEY_WINC KC_RIGHT_ALT
+// Pour hacker la fonction send_nibble_wrapper afin d`envoyer FR_A (KC_Q) au lieu de KC_A
+// et pour pouvoir gérer les séparateurs _ et - dans casemodes (qui envoyaient 8 et 6)
+#define UNICODE_FR
+#define UNICODE_ASCII
 
 // Gestion des leds
 #ifdef RGBLIGHT_ENABLE

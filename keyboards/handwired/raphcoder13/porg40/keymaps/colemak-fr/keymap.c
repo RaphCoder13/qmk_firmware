@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 FR_DOT, KC_SPC,	KC_TAB                 , KC_TRNS, KC_TRNS               ,           KC_TRNS,	KC_BSPC,	KC_DEL),
     [NAV]          = LAYOUT_wrapper(
                     ____________NAV_L1____________  , KC_TRNS, KC_TRNS                                , ____________NAV_R1____________                  ,
-            KC_CAPS,____________NAV_L2____________  , KC_TRNS, KC_TRNS                                , ____________NAV_R2____________                  , KC_NUM,
+            KC_TRNS,____________NAV_L2____________  , KC_TRNS, KC_TRNS                                , ____________NAV_R2____________                  , KC_NUM,
             KC_TRNS,____________NAV_L3____________  , KC_TRNS, KC_TRNS                                , ____________NAV_R3____________                  , KC_TRNS,
                 KC_TRNS, KC_TRNS, KC_TRNS           , KC_TRNS, KC_TRNS                  ,             KC_TRNS, KC_TRNS, KC_TRNS),
     [FUN]          = LAYOUT_wrapper(
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ___________ACCENT_NEW_COLEMAK_L1___________           , KC_TRNS, KC_TRNS       ,___________ACCENT_NEW_COLEMAK_R1___________                  ,
         KC_TRNS,___________ACCENT_NEW_COLEMAK_L2___________   , KC_TRNS, KC_TRNS               ,___________ACCENT_NEW_COLEMAK_R2___________                  ,	KC_NO,
         KC_TRNS,___________ACCENT_NEW_COLEMAK_L3___________   , KC_TRNS, KC_TRNS               ,___________ACCENT_NEW_COLEMAK_R3___________                  ,	KC_TRNS,
-                KC_TRNS, SAGR(KC_SPC),	KC_TRNS,				KC_TRNS, KC_TRNS                  ,KC_TRNS,	KC_TRNS,	KC_DEL),
+                ALGR(KC_SPC),	ALGR(KC_G),KC_TRNS,				KC_TRNS, KC_TRNS                  ,KC_TRNS,	KC_TRNS,	KC_DEL),
     [MOUSE_LAYER] = LAYOUT_wrapper(
             ___________MOUSE_L1___________           , KC_TRNS, KC_TRNS, ___________MOUSE_R1___________                ,
             KC_NO,   ___________MOUSE_L2___________  , KC_TRNS, KC_TRNS         , ___________MOUSE_R2___________                ,  KC_NO,
@@ -164,11 +164,26 @@ void pointing_device_init_user(void) {
 #define SCROLL_DIVISOR_H 64.0
 #define SCROLL_DIVISOR_V 64.0
 
+float scroll_accumulated_h = 0;
+float scroll_accumulated_v = 0;
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
     if (set_scrolling) {
-        mouse_report.h = mouse_report.x;
-        mouse_report.v = mouse_report.y;
+        if (abs(mouse_report.x) > abs(mouse_report.y)) {
+            mouse_report.h = (float)mouse_report.x / SCROLL_DIVISOR_H;
+            mouse_report.v = 0;
+            scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
+            mouse_report.h = (int8_t)scroll_accumulated_h;
+            scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
+        } else {
+            mouse_report.h = 0;
+            mouse_report.v = (float)mouse_report.y / SCROLL_DIVISOR_V;
+            scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+            mouse_report.v = (int8_t)scroll_accumulated_v;
+            scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+        }
+        // mouse_report.h = mouse_report.x;
+        // mouse_report.v = mouse_report.y;
         mouse_report.x = 0;
         mouse_report.y = 0;
     }
@@ -200,10 +215,9 @@ bool achordion_eager_mod(uint8_t mod) {
     switch (mod) {
         case MOD_LSFT:
         case MOD_RSFT:
-        case MOD_LCTL:
-        case MOD_RCTL:
-            // return true; // Eagerly apply Shift and Ctrl mods.
-            return false; // Eagerly apply Shift and Ctrl mods.
+        // case MOD_LCTL:
+        // case MOD_RCTL:
+            return true; // Eagerly apply Shift and Ctrl mods.
 
         default:
             return false;
@@ -265,10 +279,17 @@ bool achordion_chord(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, ui
 
 void leader_start_user(void) {
     // Do something when the leader key is pressed
+
+    // Start an led matrix animation
+    //
+
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_ALTERNATING);
+
 }
 
 // All xcase functions driven by leader key
 void leader_end_user(void) {
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     if (leader_sequence_one_key(FR_P)) {
         // Enable Pascal case
         enable_xcase_with(OSM(MOD_RSFT));
@@ -308,9 +329,9 @@ void leader_end_user(void) {
         SEND_STRING("el");
 
     } else if (leader_sequence_two_keys(FR_R, FR_D)) {
-        SEND_STRING("**REMOVED**");
+        SEND_STRING("DEBEUGNY");
     } else if (leader_sequence_two_keys(FR_R, FR_T)) {
-        SEND_STRING("**REMOVED**");
+        SEND_STRING("06 12 43 19 94");
     }
 
 
@@ -479,6 +500,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 
+        case K_VSCROLL :
+            set_scrolling = record->event.pressed;
+            // if(!record->tap.count && record->event.pressed){
+            //     set_scrolling   = !set_scrolling;
+            //     }
+                return false;
+            break;
 
         case VRSN:
             if (record->event.pressed) {
